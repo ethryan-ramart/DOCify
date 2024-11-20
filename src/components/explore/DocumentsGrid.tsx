@@ -46,7 +46,7 @@ export default function DocumentsGrid({ documents }: { documents: Document[] }) 
   return (
     <div className="p-10">
       {/* <h1 className="text-2xl font-bold">Explore the collection of documents</h1> */}
-      <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-3 mt-8">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-8">
         {
           documents && documents.length > 0 ?
             documents.map((doc: Document) => (
