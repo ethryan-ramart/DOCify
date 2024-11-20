@@ -36,7 +36,7 @@ export async function pwdRecoveryRequest(prevState: State, data: any) {
   const { data: rpwdData, error } = await supabase.auth.resetPasswordForEmail(validatedFields.data.email, {
     // redirectTo: `${process.env.NEXT_BASE_URL}/auth/callback?next=/password-update`,
     // redirectTo: `http://localhost:3000/auth/callback?next=/password-update`,
-    redirectTo: `https://dockyhub.vercel.app/auth/callback?next=/password-update`,
+    redirectTo: `https://docify.xyz/auth/callback?next=/password-update`,
   })
 
   if (error) {

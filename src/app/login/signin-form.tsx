@@ -66,7 +66,7 @@ export default function SigninForm() {
       options: {
         // redirectTo: `${process.env.NEXT_BASE_URL}/auth/callback`,
         // redirectTo: 'http://localhost:3000/auth/callback',
-        redirectTo: 'https://dockyhub.vercel.app/auth/callback',
+        redirectTo: 'https://docify.xyz/auth/callback',
       },
     });
   };
