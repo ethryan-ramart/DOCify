@@ -118,7 +118,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             <ViewPDF url={document.file_url} />
           </div>
 
-          <div className="w-full max-h-[66vh] lg:w-1/4 lg:fixed lg:right-3 lg:top-16 lg:bottom-8">
+          <div className="w-full max-h-[50vh] lg:w-1/4 lg:fixed lg:right-3 lg:top-16 lg:bottom-8">
             <div className="w-full flex justify-center">
               <Card key={document.id} className="w-full mb-2">
                 <CardContent className="relative p-3">
