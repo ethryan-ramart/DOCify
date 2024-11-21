@@ -1,4 +1,4 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import {
   Card,
@@ -7,7 +7,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -15,22 +15,22 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { getDocumentById, getUserFavDocsUuid, getUsername } from '@/lib/data';
+} from "@/components/ui/breadcrumb";
+import { getDocumentById, getUserFavDocsUuid, getUsername } from "@/lib/data";
 
-import { Metadata } from 'next'
-import { notFound } from 'next/navigation';
-import { DownloadDocument } from '@/components/my-docs/buttons';
-import ViewPDF from '@/components/ViewPDF';
-import ChatWithPDF from '@/components/ChatWithPDF';
-import FavButton2 from '@/components/FavButton2';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-import { UserIcon } from 'lucide-react';
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { DownloadDocument } from "@/components/my-docs/buttons";
+import ViewPDF from "@/components/ViewPDF";
+import ChatWithPDF from "@/components/ChatWithPDF";
+import FavButton2 from "@/components/FavButton2";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { UserIcon } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: 'View Document'
-}
+  title: "View Document",
+};
 
 export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id;
@@ -46,7 +46,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   return (
     <div className="flex justify-center items-center">
       <main className="w-full h-screen flex flex-col p-10">
-        <Breadcrumb className='mb-4'>
+        <Breadcrumb className="mb-4">
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink href="/explore">Explore</BreadcrumbLink>
@@ -60,38 +60,52 @@ export default async function Page({ params }: { params: { id: string } }) {
 
         {/* Tabs for mobile */}
         <Tabs defaultValue="document" className="w-full lg:hidden">
-          <TabsList className='w-full'>
-            <TabsTrigger value="document" className='w-1/2'>Document</TabsTrigger>
-            <TabsTrigger value="chat" className='w-1/2'>Chat</TabsTrigger>
+          <TabsList className="w-full">
+            <TabsTrigger value="document" className="w-1/2">
+              Document
+            </TabsTrigger>
+            <TabsTrigger value="chat" className="w-1/2">
+              Chat
+            </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="document" className='h-screen'>
-            <div className='w-full flex justify-center mb-4'>
+          <TabsContent value="document" className="h-screen">
+            <div className="w-full flex justify-center mb-4">
               <Card key={document.id}>
-                <CardContent className='mt-6'>
-                  <div className='flex items-center space-x-3'>
-
+                <CardContent className="mt-6">
+                  <div className="flex items-center space-x-3">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={document.cover_url} alt={`${document.title}-cover`} className="max-h-40 aspect-[9/16]" />
-
-
-                    <div> {/* right side wrapper */}
-                      <div className='flex max-w-32 space-x-2'>
-                        <DownloadDocument publicUrl={document.file_url} className="flex-grow" />
+                    <img
+                      src={document.cover_url}
+                      alt={`${document.title}-cover`}
+                      className="max-h-40 aspect-[9/16]"
+                    />
+                    <div>
+                      {" "}
+                      {/* right side wrapper */}
+                      <div className="flex max-w-32 space-x-2">
+                        <DownloadDocument
+                          publicUrl={document.file_url}
+                          className="flex-grow"
+                        />
                       </div>
-
                       <div className="flex flex-col space-y-2 mt-4">
                         <CardTitle>{document.title}</CardTitle>
                         {/* <CardDescription>{username}</CardDescription> */}
-                        {
-                          username && userId
-                            ? <CardDescription><Button variant="link" asChild><Link href={`../../profile/${userId}`}><UserIcon className="mr-1" />{username}</Link></Button></CardDescription>
-                            : null
-                        }
+                        {username && userId ? (
+                          <CardDescription>
+                            <Button variant="link" asChild>
+                              <Link href={`../../profile/${userId}`}>
+                                <UserIcon className="mr-1" />
+                                {username}
+                              </Link>
+                            </Button>
+                          </CardDescription>
+                        ) : null}
                         <p className="line-clamp-4">{document.description}</p>
                       </div>
-                    </div> {/* right side wrapper */}
-
+                    </div>{" "}
+                    {/* right side wrapper */}
                   </div>
                 </CardContent>
               </Card>
@@ -99,51 +113,66 @@ export default async function Page({ params }: { params: { id: string } }) {
             <ViewPDF url={document.file_url} />
           </TabsContent>
           <TabsContent value="chat">
-            <div className='w-full min-h=[80vh] max-h-[80vh] lg:w-1/4 lg:fixed lg:right-3 lg:top-16 lg:bottom-8'>
+            <div className="w-full min-h=[80vh] max-h-[80vh] lg:w-1/4 lg:fixed lg:right-3 lg:top-16 lg:bottom-8">
               <ChatWithPDF documentId={document.pinecone_id} />
             </div>
           </TabsContent>
         </Tabs>
 
         {/* Panels for desktop */}
-        <div className='hidden lg:flex lg:flex-row space-x-2 w-full'>
-          <div className='w-full lg:w-3/4'>
-            <div className='w-full flex justify-start'>
-              <Card key={document.id} className='w-96 mb-2'>
-                <CardHeader className='relative'>
-                  <FavButton2 className="absolute top-4 right-4 text-2xl" isFav={isFav} bookUuid={document.id} />
+        <div className="hidden lg:flex lg:flex-row space-x-2 w-full">
+          <div className="w-full lg:w-3/4">
+            <ViewPDF url={document.file_url} />
+          </div>
+
+          <div className="w-full max-h-[66vh] lg:w-1/4 lg:fixed lg:right-3 lg:top-16 lg:bottom-8">
+            <div className="w-full flex justify-start">
+              <Card key={document.id} className="w-full mb-2">
+                <CardHeader className="relative p-3">
+                  <FavButton2
+                    className="absolute top-4 right-4 text-2xl"
+                    isFav={isFav}
+                    bookUuid={document.id}
+                  />
                 </CardHeader>
-                <CardContent className='mt-6'>
-                  <div className='flex items-center space-x-3'>
-
+                <CardContent>
+                  <div className="flex items-center space-x-3">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={document.cover_url} alt={`${document.title}-cover`} className="max-h-40 aspect-[9/16]" />
-
-                    <div> {/* right side wrapper */}
-                      <div className='flex max-w-32 space-x-2'>
-                        <DownloadDocument publicUrl={document.file_url} className="flex-grow" />
+                    <img
+                      src={document.cover_url}
+                      alt={`${document.title}-cover`}
+                      className="max-h-40 aspect-[9/16]"
+                    />
+                    <div>
+                      {" "}
+                      {/* right side wrapper */}
+                      <div className="flex max-w-32 space-x-2">
+                        <DownloadDocument
+                          publicUrl={document.file_url}
+                          className="flex-grow"
+                        />
                       </div>
-
                       <div className="flex flex-col space-y-2 mt-4">
                         <CardTitle>{document.title}</CardTitle>
                         {/* <CardDescription>{username}</CardDescription> */}
-                        {
-                          username && userId
-                            ? <CardDescription><Button variant="link" asChild><Link href={`../../profile/${userId}`}><UserIcon className="mr-1" />{username}</Link></Button></CardDescription>
-                            : null
-                        }
+                        {username && userId ? (
+                          <CardDescription>
+                            <Button variant="link" asChild>
+                              <Link href={`../../profile/${userId}`}>
+                                <UserIcon className="mr-1" />
+                                {username}
+                              </Link>
+                            </Button>
+                          </CardDescription>
+                        ) : null}
                         <p className="line-clamp-4">{document.description}</p>
                       </div>
-                    </div> {/* right side wrapper */}
-
+                    </div>{" "}
+                    {/* right side wrapper */}
                   </div>
                 </CardContent>
               </Card>
             </div>
-            <ViewPDF url={document.file_url} />
-          </div>
-
-          <div className='w-full max-h-[85vh] lg:w-1/4 lg:fixed lg:right-3 lg:top-16 lg:bottom-8'>
             <ChatWithPDF documentId={document.pinecone_id} />
           </div>
         </div>
