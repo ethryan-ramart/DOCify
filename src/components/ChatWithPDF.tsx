@@ -33,7 +33,7 @@ export default function ChatWithPDF({ documentId }: { documentId: string | undef
       </div>
 
       {/* Message list */}
-      <div className="max-h-[60vh] overflow-y-auto p-10">
+      <div className="max-h-[40vh] overflow-y-auto p-6">
         <MessageList messages={messages} />
       </div>
 
