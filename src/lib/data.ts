@@ -250,8 +250,7 @@ export async function getFilteredDocuments(query: string, currentPage: number): 
       return data;
     } else {
       // There is no text search in multiple columns in supabase yet, we use the DB function "docs_search"
-      const { data, error } = await supabase.from('active_documents_with_usernames').select().textSearch('docs_search_with_username', `'${query}'`).range(offset, offset + EXPLORE_ITEMS_PER_PAGE - 1);
-      // console.log(data)
+      const { data, error } = await supabase.from('active_documents_with_usernames').select().textSearch('title', `'${query}'`).range(offset, offset + EXPLORE_ITEMS_PER_PAGE - 1);
       if (error) {
         return []
       }
@@ -676,19 +675,14 @@ export async function getFilteredUserDocuments(query: string, currentPage: numbe
       }
       return data;
     } else {
-
-      // TODO: There is no text search in multiple columns in supabase yet
       // Search by title only
-      const { data, error } = await supabase.from('documents').select().textSearch('my_docs_search', `'${query}'`).eq('is_active', true).eq('user_id', user?.id);
+      const { data, error } = await supabase.from('documents').select().textSearch('title', `'${query}'`).eq('is_active', true).eq('user_id', user?.id);
       if (error) {
         return []
       }
-      // console.log(data)
-      
-      // TODO: Update the DB function to filter by user_id, doing it here is not optimal
+
       const filteredData = data.filter((doc) => doc.user_id === user?.id)
       return filteredData;
-      // return data;
     }
   } catch (error) {
     console.error('Database Error:', error);

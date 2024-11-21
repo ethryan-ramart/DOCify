@@ -61,8 +61,7 @@ export default async function ProtectedPage({
             <SearchInput placeholder="Search my documents..." />
             <AddDocument />
           </div>
-          {/* <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}> */}
-          <Suspense fallback={<MyDocsTableSkeleton />}>
+          <Suspense key={query + currentPage} fallback={<MyDocsTableSkeleton />}>
             <MyDocsTable query={query} currentPage={currentPage} totalPages={totalPages} />
           </Suspense>
 
